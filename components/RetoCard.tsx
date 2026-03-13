@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { ArrowUpRight, Lock } from 'lucide-react';
 
 interface RetoCardProps {
   number: number;
@@ -41,68 +40,86 @@ export default function RetoCard({
     return () => observer.disconnect();
   }, [onVisible]);
 
-  const statusColors = {
-    completed: 'bg-accent/20 text-accent border-accent/30',
-    'in-progress': 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-    locked: 'bg-muted text-muted-foreground border-border',
+  useEffect(() => {
+    if (isVisible && cardRef.current) {
+      const loadAnime = async () => {
+        const anime = (await import('animejs')).default;
+        anime({
+          targets: cardRef.current,
+          translateY: [20, 0],
+          opacity: [0, 1],
+          easing: 'easeOutCubic',
+          duration: 600,
+        });
+      };
+      loadAnime();
+    }
+  }, [isVisible]);
+
+  const statusStyles = {
+    completed: {
+      badge: 'bg-charcoal text-background',
+      label: 'Completado',
+    },
+    'in-progress': {
+      badge: 'bg-khaki text-charcoal',
+      label: 'En progreso',
+    },
+    locked: {
+      badge: 'bg-muted text-muted-foreground',
+      label: 'Pendiente',
+    },
   };
 
-  const statusLabels = {
-    completed: 'Completado',
-    'in-progress': 'En progreso',
-    locked: 'Bloqueado',
-  };
+  const CardWrapper = status !== 'locked' && href ? 'a' : 'div';
+  const cardProps = status !== 'locked' && href ? { href } : {};
 
   return (
-    <div
-      ref={cardRef}
-      className={`group relative p-6 md:p-8 rounded-lg glass transition-all duration-500 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      } ${status !== 'locked' ? 'hover:bg-accent/5 cursor-pointer' : 'opacity-60'}`}
-      style={{ transitionDelay: `${number * 50}ms` }}
+    <CardWrapper
+      {...cardProps}
+      ref={cardRef as React.Ref<HTMLDivElement & HTMLAnchorElement>}
+      className={`block relative p-6 border-2 border-charcoal bg-background transition-all duration-200 opacity-0 ${
+        status !== 'locked' 
+          ? 'hover:translate-x-[-2px] hover:translate-y-[-2px] cursor-pointer' 
+          : 'opacity-60'
+      }`}
+      style={{ 
+        boxShadow: status !== 'locked' 
+          ? '4px 4px 0 0 hsl(var(--charcoal))' 
+          : '4px 4px 0 0 hsl(var(--border))',
+      }}
     >
-      {/* Number badge */}
-      <div className="absolute -top-3 -left-3 w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center">
-        <span className="font-display font-bold text-accent">
+      {/* Number */}
+      <div className="flex items-start gap-4">
+        <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center border-2 border-charcoal bg-background font-mono text-lg font-bold">
           {number.toString().padStart(2, '0')}
-        </span>
-      </div>
-
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-3">
-            <span className={`text-xs px-2 py-1 rounded-full border ${statusColors[status]}`}>
-              {statusLabels[status]}
+        </div>
+        
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-3 mb-2">
+            <span className={`text-xs px-2 py-1 font-mono ${statusStyles[status].badge}`}>
+              {statusStyles[status].label}
             </span>
           </div>
           
-          <h3 className="text-xl md:text-2xl font-display font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
+          <h3 className="text-lg font-bold text-charcoal mb-1 truncate">
             {title}
           </h3>
           
-          <p className="text-muted-foreground text-sm leading-relaxed">
+          <p className="text-muted-foreground text-sm line-clamp-2">
             {description}
           </p>
         </div>
 
-        {status !== 'locked' && href ? (
-          <a 
-            href={href}
-            className="p-2 rounded-full border border-border group-hover:border-accent group-hover:bg-accent/10 transition-all"
-          >
-            <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-accent transition-colors" />
-          </a>
-        ) : (
-          <div className="p-2 rounded-full border border-border">
-            <Lock className="w-5 h-5 text-muted-foreground" />
+        {/* Arrow for active cards */}
+        {status !== 'locked' && (
+          <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M7 17L17 7M17 7H7M17 7V17" />
+            </svg>
           </div>
         )}
       </div>
-
-      {/* Progress line for completed */}
-      {status === 'completed' && (
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-accent/0 via-accent to-accent/0" />
-      )}
-    </div>
+    </CardWrapper>
   );
 }

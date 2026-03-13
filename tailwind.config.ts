@@ -20,10 +20,14 @@ const config: Config = {
         },
         border: 'hsl(var(--border))',
         ring: 'hsl(var(--ring))',
+        bone: 'hsl(var(--bone))',
+        khaki: 'hsl(var(--khaki))',
+        'warm-gray': 'hsl(var(--warm-gray))',
+        charcoal: 'hsl(var(--charcoal))',
       },
       fontFamily: {
         sans: ['var(--font-inter)'],
-        display: ['var(--font-space-grotesk)'],
+        mono: ['var(--font-jetbrains)'],
       },
       borderRadius: {
         lg: 'var(--radius)',
