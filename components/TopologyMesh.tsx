@@ -30,70 +30,110 @@ export default function TopologyMesh({ isHero = false, audioData = [], isPlaying
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
     };
     resize();
     window.addEventListener('resize', resize);
 
+    const gridSize = isHero ? 80 : 50;
+    const cols = Math.ceil(canvas.width / gridSize) + 2;
+    const rows = Math.ceil(canvas.height / gridSize) + 2;
+
     const draw = () => {
-      timeRef.current += 0.002;
+      timeRef.current += 0.001;
       const t = timeRef.current;
 
+      // Clear with subtle dark bg
       ctx.fillStyle = '#0a0a0a';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const gridSize = isHero ? 60 : 40;
-      const cols = Math.ceil(canvas.width / gridSize) + 1;
-      const rows = Math.ceil(canvas.height / gridSize) + 1;
 
       // Audio data processing
       const avgIntensity = audioData && audioData.length > 0 
         ? audioData.slice(0, 64).reduce((a, b) => a + b, 0) / 64 / 255 
         : 0;
       
-      const amplitude = isPlaying ? 0.4 + avgIntensity * 1.5 : isHero ? 0.25 : 0.2;
+      const midIntensity = audioData && audioData.length > 0
+        ? audioData.slice(32, 96).reduce((a, b) => a + b, 0) / 64 / 255
+        : 0;
 
-      // Points for topology
+      const baseAmplitude = isHero ? 0.3 : 0.2;
+      const audioAmplitude = isPlaying ? 0.2 + avgIntensity * 1.2 : 0;
+      const amplitude = baseAmplitude + audioAmplitude;
+
+      // Compute height field (topography)
       const points: Array<Array<{ x: number; y: number; z: number }>> = [];
 
       for (let row = 0; row < rows; row++) {
         points[row] = [];
         for (let col = 0; col < cols; col++) {
-          const x = col * gridSize;
-          const y = row * gridSize;
+          const x = col * gridSize - gridSize / 2;
+          const y = row * gridSize - gridSize / 2;
 
           const distFromCenter = Math.sqrt(
             Math.pow((x - canvas.width / 2) / canvas.width, 2) +
             Math.pow((y - canvas.height / 2) / canvas.height, 2)
           );
 
-          // Topological wave field
-          const wave1 = Math.sin(distFromCenter * 6 - t * 0.3) * amplitude;
-          const wave2 = Math.sin(x * 0.005 + t * 0.2) * amplitude * 0.4;
-          const wave3 = Math.cos(y * 0.005 - t * 0.15) * amplitude * 0.4;
+          // Multi-layered wave field with different frequencies
+          const radialWave = Math.sin(distFromCenter * 5 - t * 0.15) * amplitude;
+          const horizontalFlow = Math.sin(x * 0.004 + t * 0.1) * amplitude * 0.6;
+          const verticalFlow = Math.cos(y * 0.004 - t * 0.08) * amplitude * 0.6;
+          const turbulence = Math.sin(distFromCenter * 12 + t * 0.3) * amplitude * 0.3;
 
+          // Audio reactive tertiary wave
           const freqIndex = Math.floor((col / cols) * Math.min(audioData.length, 64));
           const freqValue = audioData[freqIndex] || 0;
-          const audioDisplacement = isPlaying ? (freqValue / 255) * 20 : 0;
+          const audioWave = isPlaying ? (freqValue / 255 - 0.5) * 0.4 : 0;
 
-          const z = (wave1 + wave2 + wave3) * 15 + audioDisplacement;
-          points[row][col] = { x, y, z };
+          const z = (radialWave + horizontalFlow + verticalFlow + turbulence) * 20 + audioWave * 15;
+
+          points[row][col] = { 
+            x: col * gridSize, 
+            y: row * gridSize, 
+            z,
+            height: z
+          };
         }
       }
 
-      // Draw lines with varying opacity
-      const baseOpacity = isHero ? 0.08 : 0.12;
-      const dynamicOpacity = isHero ? baseOpacity + avgIntensity * 0.08 : baseOpacity;
-      
-      ctx.strokeStyle = `rgba(196, 183, 166, ${dynamicOpacity})`;
-      ctx.lineWidth = 0.8;
+      // Layer 1: Field lines (contours) - subtle flowing lines
+      ctx.strokeStyle = `rgba(196, 183, 166, ${0.04 + avgIntensity * 0.04})`;
+      ctx.lineWidth = 0.5;
+      ctx.setLineDash([2, 4]);
+
+      // Diagonal field lines (flowing curves)
+      for (let i = -Math.max(cols, rows); i < Math.max(cols, rows) * 2; i++) {
+        ctx.beginPath();
+        for (let step = 0; step < Math.max(cols, rows) * 2; step++) {
+          const row = Math.min(Math.max(Math.floor(i + step * 0.7), 0), rows - 1);
+          const col = Math.min(Math.max(step, 0), cols - 1);
+          const p = points[row] && points[row][col] ? points[row][col] : null;
+          if (!p) continue;
+
+          const screenY = p.y + p.z * 0.8;
+          if (step === 0) ctx.moveTo(p.x, screenY);
+          else ctx.lineTo(p.x, screenY);
+        }
+        ctx.stroke();
+      }
+
+      ctx.setLineDash([]);
+
+      // Layer 2: Primary mesh grid (main structure)
+      const meshOpacity = isHero ? 0.08 : 0.12;
+      const dynamicMeshOpacity = meshOpacity + avgIntensity * 0.06;
+      ctx.strokeStyle = `rgba(196, 183, 166, ${dynamicMeshOpacity})`;
+      ctx.lineWidth = 0.9;
 
       // Horizontal lines
       for (let row = 0; row < rows; row++) {
         ctx.beginPath();
         for (let col = 0; col < cols; col++) {
           const p = points[row][col];
-          if (col === 0) ctx.moveTo(p.x, p.y + p.z);
-          else ctx.lineTo(p.x, p.y + p.z);
+          const screenY = p.y + p.z * 0.9;
+          if (col === 0) ctx.moveTo(p.x, screenY);
+          else ctx.lineTo(p.x, screenY);
         }
         ctx.stroke();
       }
@@ -103,22 +143,91 @@ export default function TopologyMesh({ isHero = false, audioData = [], isPlaying
         ctx.beginPath();
         for (let row = 0; row < rows; row++) {
           const p = points[row][col];
-          if (row === 0) ctx.moveTo(p.x, p.y + p.z);
-          else ctx.lineTo(p.x, p.y + p.z);
+          const screenY = p.y + p.z * 0.9;
+          if (row === 0) ctx.moveTo(p.x, screenY);
+          else ctx.lineTo(p.x, screenY);
         }
         ctx.stroke();
       }
 
-      // Subtle nodal points
-      if (isHero && t % 2 < 0.1) {
-        ctx.fillStyle = `rgba(196, 183, 166, ${0.06 + avgIntensity * 0.04})`;
-        for (let row = 0; row < rows; row += 3) {
-          for (let col = 0; col < cols; col += 3) {
-            const p = points[row][col];
+      // Layer 3: Contour highlights (topographic isolines)
+      if (isHero) {
+        const contourLevels = [0.3, 0.6, 0.9];
+        const maxZ = Math.max(...points.flat().map(p => p.z));
+        const minZ = Math.min(...points.flat().map(p => p.z));
+        const zRange = maxZ - minZ;
+
+        contourLevels.forEach((level, idx) => {
+          const contourValue = minZ + zRange * level;
+          ctx.strokeStyle = `rgba(196, 183, 166, ${0.02 + (idx * 0.01) + avgIntensity * 0.02})`;
+          ctx.lineWidth = 0.6;
+          
+          for (let row = 0; row < rows - 1; row++) {
             ctx.beginPath();
-            ctx.arc(p.x, p.y + p.z, 1.2, 0, Math.PI * 2);
+            let started = false;
+            for (let col = 0; col < cols - 1; col++) {
+              const p1 = points[row][col];
+              const p2 = points[row + 1] ? points[row + 1][col] : null;
+              const p3 = points[row][col + 1];
+
+              if (!p1 || !p2 || !p3) continue;
+
+              // Simple contour tracing
+              const onContour = (p1.z - contourValue) * (p2.z - contourValue) < 0 ||
+                              (p1.z - contourValue) * (p3.z - contourValue) < 0;
+
+              if (onContour) {
+                const y = p1.y + p1.z * 0.9;
+                if (!started) {
+                  ctx.moveTo(p1.x, y);
+                  started = true;
+                } else {
+                  ctx.lineTo(p1.x, y);
+                }
+              }
+            }
+            ctx.stroke();
+          }
+        });
+      }
+
+      // Layer 4: Subtle nodal energy points (sparse, elegant)
+      if (isHero && avgIntensity > 0.05) {
+        const nodeOpacity = Math.min(0.04 + avgIntensity * 0.06, 0.12);
+        ctx.fillStyle = `rgba(196, 183, 166, ${nodeOpacity})`;
+        
+        for (let row = 0; row < rows; row += 4) {
+          for (let col = 0; col < cols; col += 4) {
+            const p = points[row][col];
+            const energy = Math.abs(p.z) / 20;
+            const nodeSize = 0.8 + energy * 1.2;
+            
+            ctx.beginPath();
+            ctx.arc(p.x, p.y + p.z * 0.9, nodeSize, 0, Math.PI * 2);
             ctx.fill();
           }
+        }
+      }
+
+      // Layer 5: Depth variation (subtle depth cues)
+      if (!isHero) {
+        ctx.strokeStyle = `rgba(196, 183, 166, ${0.02 + avgIntensity * 0.02})`;
+        ctx.lineWidth = 0.4;
+
+        // Sparse diagonal lines for spatial tension
+        for (let i = 0; i < 4; i++) {
+          ctx.beginPath();
+          const startCol = (i * cols) / 4;
+          for (let row = 0; row < rows; row++) {
+            const col = Math.min(Math.floor(startCol + row * 0.3), cols - 1);
+            const p = points[row] && points[row][col] ? points[row][col] : null;
+            if (!p) continue;
+
+            const screenY = p.y + p.z * 0.85;
+            if (row === 0) ctx.moveTo(p.x, screenY);
+            else ctx.lineTo(p.x, screenY);
+          }
+          ctx.stroke();
         }
       }
 
@@ -129,7 +238,7 @@ export default function TopologyMesh({ isHero = false, audioData = [], isPlaying
 
     return () => {
       window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animationRef.current);
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
   }, [audioData, isPlaying, mounted, isHero]);
 

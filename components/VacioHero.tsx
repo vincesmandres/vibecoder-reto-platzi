@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import TopologyMesh from './TopologyMesh';
 import { ChevronDown } from 'lucide-react';
 
 export default function VacioHero() {
@@ -14,14 +15,13 @@ export default function VacioHero() {
 
   return (
     <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-charcoal">
-      {/* Topology background */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-0 opacity-40"
-          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-        >
-          <div className="w-full h-full bg-gradient-to-b from-khaki/[0.02] via-transparent to-charcoal/20" />
-        </div>
+      {/* Premium topology mesh background */}
+      <TopologyMesh isHero={true} />
+
+      {/* Depth layers with subtle gradients */}
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-charcoal/40" />
+        <div className="absolute inset-0 bg-gradient-radial from-transparent via-charcoal/5 to-charcoal" />
       </div>
 
       {/* Centered content */}
