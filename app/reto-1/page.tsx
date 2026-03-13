@@ -1,5 +1,6 @@
 'use client';
 
+// VACIO Landing Page - Clean build v3
 import VacioCarousel from '@/components/VacioCarousel';
 import TicketDrawer from '@/components/TicketDrawer';
 import { useState } from 'react';
