@@ -16,7 +16,8 @@ const retos = [
     number: 2,
     title: 'Reto 2',
     description: 'Descripción pendiente del segundo reto del desafío Vibecoder.',
-    status: 'locked' as const,
+    status: 'in-progress' as const,
+    href: '/reto-2',
   },
   {
     number: 3,
