@@ -56,7 +56,7 @@ export default function VacioDrawer({ isOpen, onClose, onTicketSelect }: VacioDr
 
       {/* Drawer */}
       <div 
-        className={`fixed left-0 top-0 h-screen w-72 bg-bone border-r border-charcoal/10 z-50 transition-transform duration-300 overflow-y-auto ${
+        className={`fixed left-0 top-0 h-screen w-80 bg-bone border-r border-charcoal/10 z-50 transition-transform duration-300 overflow-y-auto ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -173,10 +173,15 @@ export function VacioDrawerToggle({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="fixed left-6 top-6 z-30 p-3 text-charcoal hover:bg-charcoal/5 rounded-sm transition-colors"
+      className="fixed left-6 top-6 z-30 p-4 text-charcoal/50 hover:text-charcoal transition-colors"
       aria-label="Open drawer"
+      title="Open menu"
     >
-      <Menu className="w-5 h-5" />
+      <div className="flex flex-col gap-1.5 w-6">
+        <div className="w-5 h-0.5 bg-current" />
+        <div className="w-5 h-0.5 bg-current" />
+        <div className="w-3 h-0.5 bg-current" />
+      </div>
     </button>
   );
 }
