@@ -5,7 +5,6 @@ import VacioHero from './VacioHero';
 import VacioPerformers from './VacioPerformers';
 import VacioSchedule from './VacioSchedule';
 import VacioLocation from './VacioLocation';
-import HorizontalNav from './HorizontalNav';
 import ManifoldUnfold from './ManifoldUnfold';
 
 export default function VacioCarousel() {
@@ -19,18 +18,28 @@ export default function VacioCarousel() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Smooth scroll tracking for transition effects
+  // Detect which section is in viewport
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPos = window.scrollY;
-      const viewportHeight = window.innerHeight;
-      const progress = Math.min(scrollPos / (viewportHeight * 0.5), 1);
-      setTransitionProgress(progress);
+    if (isLoading) return;
+
+    const handleScrollDetection = () => {
+      const sections = ['hero', 'performers', 'schedule', 'location'];
+      const viewportCenter = window.innerHeight / 2;
+
+      sections.forEach(sectionId => {
+        const elements = document.querySelectorAll(`[data-section="${sectionId}"]`);
+        elements.forEach(el => {
+          const rect = (el as HTMLElement).getBoundingClientRect();
+          if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
+            setCurrentSection(sectionId);
+          }
+        });
+      });
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScrollDetection, { passive: true });
+    return () => window.removeEventListener('scroll', handleScrollDetection);
+  }, [isLoading]);
 
   const sections = [
     { id: 'hero', component: VacioHero },
@@ -43,27 +52,63 @@ export default function VacioCarousel() {
   const CurrentComponent = currentSectionComponent;
 
   return (
-    <div className="relative w-full bg-bone overflow-x-hidden">
-      {/* Manifold loading animation - premium intro */}
+    <div className="relative w-full bg-bone">
+      {/* Manifold loading animation - 3D to 2D unfold */}
       {isLoading && <ManifoldUnfold />}
 
-      {/* Animated content transition with smooth morphing */}
+      {/* Full-height sections stacked vertically for smooth scroll transition */}
       <div 
-        className="relative w-full h-full transition-all duration-1000 ease-out"
+        className="relative transition-all duration-1000 ease-out"
         style={{
           opacity: isLoading ? 0 : 1,
           transform: isLoading ? 'scale(0.96)' : 'scale(1)',
         }}
       >
-        <CurrentComponent transitionProgress={transitionProgress} />
+        {/* Hero Section */}
+        <div className="relative w-full min-h-screen" data-section="hero">
+          <VacioHero transitionProgress={transitionProgress} />
+        </div>
+
+        {/* Performers Section */}
+        <div className="relative w-full min-h-screen bg-charcoal-light" data-section="performers">
+          <VacioPerformers transitionProgress={transitionProgress} />
+        </div>
+
+        {/* Schedule Section */}
+        <div className="relative w-full min-h-screen bg-charcoal-light" data-section="schedule">
+          <VacioSchedule transitionProgress={transitionProgress} />
+        </div>
+
+        {/* Location Section */}
+        <div className="relative w-full min-h-screen bg-charcoal-light" data-section="location">
+          <VacioLocation transitionProgress={transitionProgress} />
+        </div>
       </div>
 
-      {/* Horizontal navigation - discrete and subtle */}
+      {/* Navigation dots - fixed position */}
       {!isLoading && (
-        <HorizontalNav 
-          currentSection={currentSection}
-          onNavigate={setCurrentSection}
-        />
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 flex gap-3">
+          {[
+            { id: 'hero', label: 'Home' },
+            { id: 'performers', label: 'Lineup' },
+            { id: 'schedule', label: 'Schedule' },
+            { id: 'location', label: 'Location' },
+          ].map((section) => (
+            <button
+              key={section.id}
+              onClick={() => {
+                const el = document.querySelector(`[data-section="${section.id}"]`);
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                currentSection === section.id
+                  ? 'bg-charcoal w-8'
+                  : 'bg-charcoal/30 hover:bg-charcoal/60'
+              }`}
+              title={section.label}
+            />
+          ))}
+        </div>
       )}
 
       {/* Footer with refined aesthetics */}
