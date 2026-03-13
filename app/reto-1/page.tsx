@@ -1,23 +1,10 @@
-'use client';
+import VacioExperience from '@/components/VacioExperience';
 
-import ManifoldAnimation from '@/components/ManifoldAnimation';
-import FestivalHero from '@/components/FestivalHero';
-import FestivalLineup from '@/components/FestivalLineup';
-import FestivalAgenda from '@/components/FestivalAgenda';
-import FestivalLocation from '@/components/FestivalLocation';
-import FestivalTickets from '@/components/FestivalTickets';
-import FestivalFooter from '@/components/FestivalFooter';
+export const metadata = {
+  title: 'Vacio | Resonancia Espacial',
+  description: 'Una experiencia audiovisual interactiva con mesh 3D reactivo al sonido',
+};
 
-export default function Festival() {
-  return (
-    <main className="bg-bone">
-      <ManifoldAnimation />
-      <FestivalHero />
-      <FestivalLineup />
-      <FestivalAgenda />
-      <FestivalLocation />
-      <FestivalTickets />
-      <FestivalFooter />
-    </main>
-  );
+export default function Reto1Page() {
+  return <VacioExperience />;
 }
