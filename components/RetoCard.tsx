@@ -19,7 +19,7 @@ export default function RetoCard({
   href,
   onVisible 
 }: RetoCardProps) {
-  const cardRef = useRef<HTMLAnchorElement | HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function RetoCard({
   return status !== 'locked' && href ? (
     <a
       href={href}
-      ref={cardRef}
+      ref={cardRef as React.RefObject<HTMLAnchorElement>}
       className={`block relative p-6 border-2 border-charcoal bg-background transition-all duration-200 opacity-0 hover:translate-x-[-2px] hover:translate-y-[-2px] cursor-pointer`}
       style={{ boxShadow: '4px 4px 0 0 hsl(var(--charcoal))' }}
     >
@@ -82,7 +82,7 @@ export default function RetoCard({
     </a>
   ) : (
     <div
-      ref={cardRef}
+      ref={cardRef as React.RefObject<HTMLDivElement>}
       className={`block relative p-6 border-2 border-charcoal bg-background transition-all duration-200 opacity-0 ${
         status === 'locked' ? 'opacity-60' : ''
       }`}
