@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import TopologyMesh from './TopologyMesh';
 import { ChevronDown } from 'lucide-react';
 
-export default function VacioHero() {
+export default function VacioHero({ scrollProgress = 0 }: { scrollProgress?: number }) {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {

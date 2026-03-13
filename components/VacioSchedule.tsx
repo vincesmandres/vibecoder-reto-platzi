@@ -14,7 +14,7 @@ const scheduleData = {
   ],
 };
 
-export default function VacioSchedule() {
+export default function VacioSchedule({ scrollProgress = 0 }: { scrollProgress?: number }) {
   return (
     <section className="relative w-full py-24 md:py-32 px-6 md:px-12 bg-charcoal/50">
       <div className="max-w-7xl mx-auto">

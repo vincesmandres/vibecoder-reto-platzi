@@ -1,6 +1,6 @@
 'use client';
 
-export default function VacioLocation() {
+export default function VacioLocation({ scrollProgress = 0 }: { scrollProgress?: number }) {
   return (
     <section className="relative w-full py-24 md:py-32 px-6 md:px-12 bg-charcoal">
       <div className="max-w-7xl mx-auto">

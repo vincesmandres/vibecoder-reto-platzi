@@ -28,7 +28,7 @@ const performers = [
   },
 ];
 
-export default function VacioPerformers() {
+export default function VacioPerformers({ scrollProgress = 0 }: { scrollProgress?: number }) {
   return (
     <section className="relative w-full py-24 md:py-32 px-6 md:px-12 bg-charcoal">
       {/* Section header */}
