@@ -6,22 +6,24 @@ import VacioPerformers from './VacioPerformers';
 import VacioSchedule from './VacioSchedule';
 import VacioLocation from './VacioLocation';
 import ManifoldUnfold from './ManifoldUnfold';
-import TopologyMeshEnhanced from './TopologyMeshEnhanced';
+import RubikCubeBackground from './RubikCubeBackground';
+import TopologyFieldMesh from './TopologyFieldMesh';
 
 const SECTIONS = [
-  { id: 'vacio', label: 'VACIO', component: VacioHero },
-  { id: 'lineup', label: 'LINEUP', component: VacioPerformers },
-  { id: 'schedule', label: 'SCHEDULE', component: VacioSchedule },
-  { id: 'location', label: 'LOCATION', component: VacioLocation },
+  { id: 'vacio', label: 'VACIO', component: VacioHero, index: 0 },
+  { id: 'lineup', label: 'LINEUP', component: VacioPerformers, index: 1 },
+  { id: 'schedule', label: 'SCHEDULE', component: VacioSchedule, index: 2 },
+  { id: 'location', label: 'LOCATION', component: VacioLocation, index: 3 },
 ];
 
 export default function VacioCarousel() {
   const [currentSection, setCurrentSection] = useState('vacio');
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 3000);
+    const timer = setTimeout(() => setIsLoading(false), 3200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -35,55 +37,47 @@ export default function VacioCarousel() {
       const progress = scrollHeight > 0 ? scrolled / scrollHeight : 0;
       setScrollProgress(progress);
 
-      // Detect which section is visible
-      const sectionHeight = scrollHeight / 3;
-      const index = Math.floor(scrolled / (scrollHeight / SECTIONS.length));
+      const index = Math.floor(progress * SECTIONS.length);
       const clampedIndex = Math.min(index, SECTIONS.length - 1);
+      setCurrentIndex(clampedIndex);
       setCurrentSection(SECTIONS[clampedIndex].id);
     };
 
     const contentArea = document.querySelector('[data-vacio-content]') as HTMLElement;
     if (contentArea) {
-      contentArea.addEventListener('scroll', handleScroll);
+      contentArea.addEventListener('scroll', handleScroll, { passive: true });
       return () => contentArea.removeEventListener('scroll', handleScroll);
     }
   }, [isLoading]);
-
-  const currentComponent = SECTIONS.find(s => s.id === currentSection)?.component || VacioHero;
-  const CurrentComponent = currentComponent;
 
   return (
     <div className="relative w-full h-screen bg-charcoal flex overflow-hidden">
       {/* Manifold loading animation */}
       {isLoading && <ManifoldUnfold />}
 
-      {/* Enhanced topology mesh background */}
-      <TopologyMeshEnhanced className="absolute inset-0 opacity-30" />
+      {/* Premium dynamic background - Rubik cube with topology */}
+      <RubikCubeBackground sectionIndex={currentIndex} className="opacity-40" />
+      <TopologyFieldMesh className="absolute inset-0 opacity-25" />
 
       {/* Left Sidebar Navigation - 30% width */}
       <div className="relative w-[30%] bg-charcoal border-r border-khaki/10 flex flex-col overflow-hidden z-20">
-        {/* Sidebar background topology */}
-        <div className="absolute inset-0 opacity-20">
-          <TopologyMeshEnhanced />
-        </div>
+        {/* Sidebar subtle backdrop */}
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal to-transparent opacity-40 pointer-events-none" />
 
         {/* Sidebar content */}
         <div className="relative z-10 flex flex-col h-full p-8 md:p-12">
-          {/* Logo */}
+          {/* Logo section */}
           <div className="mb-16 md:mb-24">
-            <h1 className="text-2xl md:text-3xl font-light text-bone tracking-[-0.01em]">
+            <h1 className="text-2xl md:text-3xl font-light text-bone tracking-[-0.01em] leading-tight">
               VACIO
             </h1>
-            <div className="w-8 h-px bg-khaki/60 mt-3" />
+            <div className="w-8 h-px bg-khaki/60 mt-4" />
           </div>
 
           {/* Section navigation */}
-          <nav className="flex-1 space-y-6 md:space-y-8">
-            {SECTIONS.map((section, idx) => {
+          <nav className="flex-1 space-y-8 md:space-y-10">
+            {SECTIONS.map((section) => {
               const isActive = currentSection === section.id;
-              const progress = (idx / SECTIONS.length);
-              const nextProgress = ((idx + 1) / SECTIONS.length);
-              const isInView = scrollProgress >= progress && scrollProgress < nextProgress;
 
               return (
                 <button
@@ -91,37 +85,35 @@ export default function VacioCarousel() {
                   onClick={() => {
                     const contentArea = document.querySelector('[data-vacio-content]') as HTMLElement;
                     if (contentArea) {
-                      const offset = (idx / SECTIONS.length) * contentArea.scrollHeight;
+                      const offset = (section.index / SECTIONS.length) * contentArea.scrollHeight;
                       contentArea.scrollTop = offset;
                     }
                   }}
-                  className="relative group text-left"
+                  className="relative group text-left w-full"
                 >
-                  {/* Indicator line */}
+                  {/* Animated indicator line */}
                   <div
-                    className="absolute -left-8 md:-left-12 w-4 md:w-6 h-px bg-khaki/40 group-hover:bg-khaki transition-all duration-300"
+                    className="absolute -left-8 md:-left-12 h-px bg-khaki transition-all duration-500"
                     style={{
-                      opacity: isActive || isInView ? 1 : 0,
-                      width: isActive || isInView ? '24px' : '16px',
+                      width: isActive ? '28px' : '16px',
+                      opacity: isActive ? 1 : 0.3,
                     }}
                   />
 
-                  {/* Label */}
+                  {/* Section label */}
                   <span
-                    className={`text-xs md:text-sm tracking-[0.2em] uppercase font-light transition-all duration-300 ${
-                      isActive || isInView
-                        ? 'text-bone'
-                        : 'text-khaki/40 group-hover:text-khaki/70'
+                    className={`text-xs md:text-sm tracking-[0.25em] uppercase font-light transition-all duration-300 block ${
+                      isActive ? 'text-bone' : 'text-khaki/40 group-hover:text-khaki/70'
                     }`}
                   >
                     {section.label}
                   </span>
 
-                  {/* Active underline */}
+                  {/* Active underline - flowing animation */}
                   <div
-                    className="mt-2 h-px bg-khaki/60 origin-left transition-all duration-500"
+                    className="mt-3 h-px bg-gradient-to-r from-khaki to-transparent origin-left transition-all duration-700"
                     style={{
-                      scaleX: isActive || isInView ? 1 : 0,
+                      transform: isActive ? 'scaleX(1)' : 'scaleX(0)',
                     }}
                   />
                 </button>
@@ -129,27 +121,28 @@ export default function VacioCarousel() {
             })}
           </nav>
 
-          {/* Footer info */}
-          <div className="space-y-4 text-xs text-khaki/30 font-light">
-            <p>October 18–19, 2026</p>
-            <p>Manta, Ecuador</p>
-            <a href="mailto:info@vacio.ec" className="hover:text-khaki transition-colors">
+          {/* Event info footer */}
+          <div className="space-y-3 text-xs text-khaki/25 font-light leading-relaxed">
+            <p>October 18–19</p>
+            <p>2026</p>
+            <p className="mt-4">Manta, Ecuador</p>
+            <a href="mailto:info@vacio.ec" className="text-khaki/35 hover:text-khaki/60 transition-colors block mt-2">
               info@vacio.ec
             </a>
           </div>
         </div>
       </div>
 
-      {/* Right Content Area - 70% width */}
+      {/* Right Content Area - 70% width with scroll */}
       <div
         data-vacio-content
-        className="relative w-[70%] overflow-y-scroll overflow-x-hidden"
+        className="relative w-[70%] overflow-y-scroll overflow-x-hidden scroll-smooth"
         style={{
           opacity: isLoading ? 0 : 1,
-          transition: 'opacity 0.8s ease-out',
+          transition: 'opacity 1s ease-out',
         }}
       >
-        {/* Sections */}
+        {/* Content sections */}
         {SECTIONS.map((section) => {
           const Comp = section.component;
           return (
