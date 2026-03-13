@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
 
 export default function ManifoldAnimation() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
