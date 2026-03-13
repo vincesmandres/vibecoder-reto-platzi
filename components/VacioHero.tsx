@@ -1,18 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import TopologyMesh from './TopologyMesh';
 import { ChevronDown } from 'lucide-react';
 
 export default function VacioHero({ scrollProgress = 0 }: { scrollProgress?: number }) {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-charcoal">
       {/* Premium topology mesh background with continuous motion */}
