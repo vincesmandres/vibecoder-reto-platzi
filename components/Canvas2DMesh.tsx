@@ -45,11 +45,11 @@ export default function Canvas2DMesh({ audioData, isPlaying }: Canvas2DMeshProps
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Calculate average audio intensity
-      const avgIntensity = audioData.length > 0 
+      const avgIntensity = audioData && audioData.length > 0 
         ? audioData.slice(0, 64).reduce((a, b) => a + b, 0) / 64 / 255 
         : 0;
       
-      const bassIntensity = audioData.length > 0 
+      const bassIntensity = audioData && audioData.length > 0
         ? audioData.slice(0, 8).reduce((a, b) => a + b, 0) / 8 / 255 
         : 0;
 
@@ -57,7 +57,7 @@ export default function Canvas2DMesh({ audioData, isPlaying }: Canvas2DMeshProps
       const waveSpeed = isPlaying ? 1 + bassIntensity : 0.5;
 
       // Store points for wireframe
-      const points: { x: number; y: number; z: number }[][] = [];
+      const points: Array<Array<{ x: number; y: number; z: number }>> = [];
 
       for (let row = 0; row < rows; row++) {
         points[row] = [];
@@ -129,7 +129,7 @@ export default function Canvas2DMesh({ audioData, isPlaying }: Canvas2DMeshProps
           for (let col = 0; col < cols; col += 2) {
             const p = points[row][col];
             const screenY = p.y + p.z;
-            const size = 1 + (audioData[col % 64] || 0) / 255 * 2;
+            const size = 1 + ((audioData[col % 64] || 0) / 255) * 2;
             ctx.beginPath();
             ctx.arc(p.x, screenY, size, 0, Math.PI * 2);
             ctx.fill();
