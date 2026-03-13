@@ -1,5 +1,6 @@
 'use client';
 
+// VacioCarousel v2 - Split layout with dynamic Rubik cube background
 import { useState, useEffect } from 'react';
 import VacioHero from './VacioHero';
 import VacioPerformers from './VacioPerformers';
