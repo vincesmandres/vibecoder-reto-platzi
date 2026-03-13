@@ -19,7 +19,7 @@ export default function RetoCard({
   href,
   onVisible 
 }: RetoCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement | HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
