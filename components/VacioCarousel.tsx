@@ -30,18 +30,18 @@ export default function VacioCarousel() {
 
   return (
     <div className="relative w-full bg-charcoal overflow-hidden">
-        {isLoading && <ManifoldUnfold />}
+      {/* Manifold loading animation */}
+      {isLoading && <ManifoldUnfold />}
 
-        {/* Animated content transition */}
-        <div 
-          className="relative w-full h-full transition-all duration-700 ease-out"
-          style={{
-            opacity: isLoading ? 0 : 1,
-            transform: isLoading ? 'scale(0.95)' : 'scale(1)',
-          }}
-        >
-          <CurrentComponent />
-        </div>
+      {/* Animated content transition */}
+      <div 
+        className="relative w-full h-full transition-all duration-700 ease-out"
+        style={{
+          opacity: isLoading ? 0 : 1,
+          transform: isLoading ? 'scale(0.95)' : 'scale(1)',
+        }}
+      >
+        <CurrentComponent />
       </div>
 
       {/* Horizontal navigation */}
@@ -53,7 +53,7 @@ export default function VacioCarousel() {
       )}
 
       {/* Footer (visible on all sections) */}
-      <footer className="relative w-full py-16 px-6 md:px-12 bg-charcoal border-t border-khaki/10 mt-screen">
+      <footer className="relative w-full py-16 px-6 md:px-12 bg-charcoal border-t border-khaki/10">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12">
           {/* About */}
           <div>
