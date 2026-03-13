@@ -1,21 +1,20 @@
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import Lineup from '@/components/Lineup';
-import Agenda from '@/components/Agenda';
-import Location from '@/components/Location';
-import Tickets from '@/components/Tickets';
-import Footer from '@/components/Footer';
+import ProfileSection from '@/components/ProfileSection';
+import RetosSection from '@/components/RetosSection';
 
 export default function Home() {
   return (
-    <main className="w-full">
-      <Header />
-      <Hero />
-      <Lineup />
-      <Agenda />
-      <Location />
-      <Tickets />
-      <Footer />
+    <main className="min-h-screen bg-background">
+      <div className="flex flex-col lg:flex-row">
+        {/* Left side - Fixed profile */}
+        <aside className="lg:fixed lg:left-0 lg:top-0 lg:w-1/3 lg:h-screen bg-background border-b lg:border-b-0 lg:border-r border-border">
+          <ProfileSection />
+        </aside>
+
+        {/* Right side - Scrollable retos */}
+        <section className="lg:ml-[33.333%] lg:w-2/3 min-h-screen">
+          <RetosSection />
+        </section>
+      </div>
     </main>
   );
 }

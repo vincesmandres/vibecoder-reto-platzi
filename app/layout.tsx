@@ -2,13 +2,19 @@ import type { Metadata } from 'next';
 import { Space_Grotesk, Inter } from 'next/font/google';
 import './globals.css';
 
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'] });
-const inter = Inter({ subsets: ['latin'] });
+const spaceGrotesk = Space_Grotesk({ 
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+});
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
-  title: 'RESONANCIA | Festival de Música, Arte y Tecnología',
-  description: 'Donde el sonido se vuelve visible. Festival de 3 días en Bogotá con artistas internacionales de música electrónica y arte sonoro.',
-  viewport: 'width=device-width, initial-scale=1.0',
+  title: 'Vicente Andres | Vibecoder Retos Platzi',
+  description: '13 retos de desarrollo web y aplicaciones con AI. Portfolio de proyectos creativos.',
 };
 
 export default function RootLayout({
@@ -17,16 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className="scroll-smooth">
-      <head>
-        <style>{`
-          :root {
-            --font-space-grotesk: ${spaceGrotesk.style.fontFamily};
-            --font-inter: ${inter.style.fontFamily};
-          }
-        `}</style>
-      </head>
-      <body className={`${inter.className} bg-background text-foreground antialiased`}>
+    <html lang="es" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+      <body className="font-sans">
         {children}
       </body>
     </html>
