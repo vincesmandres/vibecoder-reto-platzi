@@ -9,33 +9,33 @@ interface VacioDrawerProps {
 }
 
 const sections = [
-  { id: 'overview', label: 'Overview', href: '#overview' },
-  { id: 'lineup', label: 'Lineup', href: '#lineup' },
-  { id: 'venue', label: 'Venue', href: '#venue' },
+  { id: 'overview', label: 'Inicio', href: '#overview' },
+  { id: 'lineup', label: 'Artistas', href: '#lineup' },
+  { id: 'venue', label: 'Lugar', href: '#venue' },
 ];
 
 const tickets = [
   {
     id: 'early',
-    name: 'Early Access',
+    name: 'Acceso Anticipado',
     price: 39,
-    description: 'First 500 tickets',
-    features: ['2-day access', 'Digital lineup', 'Festival map'],
+    description: 'Primeros 500 entradas',
+    features: ['Acceso 2 días', 'Lineup digital', 'Mapa del festival'],
   },
   {
     id: 'general',
-    name: 'General Admission',
+    name: 'Admisión General',
     price: 69,
-    description: 'Standard access',
-    features: ['2-day access', 'Digital lineup', 'Festival map', 'Merch item'],
+    description: 'Acceso estándar',
+    features: ['Acceso 2 días', 'Lineup digital', 'Mapa del festival', 'Merchandise'],
     highlighted: true,
   },
   {
     id: 'void',
     name: 'Void Pass',
     price: 95,
-    description: 'Premium experience',
-    features: ['2-day access', 'VIP lounge', 'Meet & greet', 'Exclusive merch', 'Priority entry'],
+    description: 'Experiencia premium',
+    features: ['Acceso 2 días', 'Lounge VIP', 'Meet & greet', 'Merchandise exclusivo', 'Entrada prioritaria'],
   },
 ];
 
@@ -96,7 +96,7 @@ export default function VacioDrawer({ isOpen, onClose, onTicketSelect }: VacioDr
           {/* Tickets Section */}
           <div className="space-y-4">
             <h3 className="text-xs uppercase tracking-[0.2em] font-light text-charcoal">
-              Get Tickets
+              Comprar entradas
             </h3>
 
             {/* Ticket Cards */}
@@ -144,7 +144,7 @@ export default function VacioDrawer({ isOpen, onClose, onTicketSelect }: VacioDr
                     onClick={() => handleTicketClick(ticket.id)}
                     className="w-full py-2 px-3 text-xs uppercase tracking-[0.1em] font-light border border-charcoal text-charcoal hover:bg-charcoal hover:text-bone transition-all duration-200 rounded-sm"
                   >
-                    Select
+                    Seleccionar
                   </button>
                 </div>
               ))}
@@ -157,7 +157,7 @@ export default function VacioDrawer({ isOpen, onClose, onTicketSelect }: VacioDr
           {/* Footer Info */}
           <div className="space-y-2 text-xs text-charcoal/50 font-light">
             <p className="uppercase tracking-[0.1em]">Festival</p>
-            <p className="text-charcoal/40">October 18–19, 2026</p>
+            <p className="text-charcoal/40">18–19 de Octubre, 2026</p>
             <p className="text-charcoal/40">Manta, Ecuador</p>
             <a href="mailto:info@vacio.ec" className="block text-charcoal/40 hover:text-charcoal transition-colors">
               info@vacio.ec
