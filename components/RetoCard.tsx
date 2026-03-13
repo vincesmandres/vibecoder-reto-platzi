@@ -70,8 +70,6 @@ export default function RetoCard({
       label: 'Pendiente',
     },
   };
-
-  const CardWrapper = status !== 'locked' && href ? 'a' : 'div';
   
   return status !== 'locked' && href ? (
     <a
