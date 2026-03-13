@@ -64,17 +64,6 @@ export default function VacioHero({ transitionProgress = 0 }: { transitionProgre
             View Lineup
           </button>
         </div>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-slide-left" style={{ animationDelay: '600ms' }}>
-          <button className="px-8 py-3 border border-charcoal text-charcoal hover:bg-charcoal hover:text-bone transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light">
-            Get Tickets
-          </button>
-          <button className="px-8 py-3 border border-charcoal/40 text-charcoal/60 hover:border-charcoal/80 hover:text-charcoal transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light">
-            Explore
-          </button>
-        </div>
       </div>
 
       {/* Scroll indicator */}
