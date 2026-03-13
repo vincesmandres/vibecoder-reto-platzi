@@ -1,19 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import dynamic from 'next/dynamic';
+import Canvas2DMesh from './Canvas2DMesh';
 import TrackCarousel from './TrackCarousel';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-
-const VacioScene = dynamic(() => import('./VacioScene'), { 
-  ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 z-0 bg-[#0a0a0a] flex items-center justify-center">
-      <div className="w-32 h-32 border border-[#c4b7a6]/20 animate-pulse" />
-    </div>
-  )
-});
 
 const tracks = [
   {
@@ -164,8 +155,8 @@ export default function VacioExperience() {
         <p className="text-khaki/40 text-xs tracking-[0.3em] mt-1">Resonancia Espacial</p>
       </div>
       
-      {/* 3D Scene */}
-      <VacioScene audioData={audioData} isPlaying={isPlaying} />
+      {/* Wireframe Mesh */}
+      <Canvas2DMesh audioData={audioData} isPlaying={isPlaying} />
       
       {/* Gradient overlay */}
       <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-charcoal via-transparent to-charcoal/50" />
