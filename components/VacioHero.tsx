@@ -4,19 +4,19 @@ import { useState, useEffect } from 'react';
 import TopologyMesh from './TopologyMesh';
 import { ChevronDown } from 'lucide-react';
 
-export default function VacioHero() {
+export default function VacioHero({ transitionProgress = 0 }: { transitionProgress?: number }) {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-charcoal">
-      {/* Premium topology mesh background - manifold surface */}
-      <TopologyMesh isHero={true} isMorphing={false} />
+    <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-charcoal-light">
+      {/* Premium topology mesh - manifold surface with spatial depth */}
+      <TopologyMesh isHero={true} isMorphing={false} transitionProgress={transitionProgress} />
 
       {/* Depth layers with subtle gradients */}
       <div className="absolute inset-0 z-[1] pointer-events-none">
