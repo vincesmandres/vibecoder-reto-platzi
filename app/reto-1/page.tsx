@@ -1,21 +1,38 @@
 'use client';
 
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Menu, ShoppingCart, X } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
+import LeftNavPanel, { LeftNavToggle } from '@/components/LeftNavPanel';
+import RightTicketPanel, { RightTicketToggle } from '@/components/RightTicketPanel';
 
 export default function VacioLanding() {
+  const [leftPanelOpen, setLeftPanelOpen] = useState(false);
+  const [rightPanelOpen, setRightPanelOpen] = useState(false);
+
+  const handleHeroTicketClick = () => setRightPanelOpen(true);
+  const handleHeroLineupClick = () => setLeftPanelOpen(true);
+
   return (
     <main className="w-full bg-bone text-charcoal">
       {/* Back navigation */}
       <Link 
         href="/"
-        className="fixed top-6 left-6 z-40 text-xs uppercase tracking-[0.2em] text-charcoal/60 hover:text-charcoal transition-colors"
+        className="fixed top-6 left-6 z-20 text-xs uppercase tracking-[0.2em] text-charcoal/60 hover:text-charcoal transition-colors md:left-auto md:right-6"
       >
         ← Volver
       </Link>
 
+      {/* Left Navigation Panel */}
+      <LeftNavPanel isOpen={leftPanelOpen} onClose={() => setLeftPanelOpen(false)} />
+      <LeftNavToggle onClick={() => setLeftPanelOpen(!leftPanelOpen)} />
+
+      {/* Right Ticket Panel */}
+      <RightTicketPanel isOpen={rightPanelOpen} onClose={() => setRightPanelOpen(false)} />
+      <RightTicketToggle onClick={() => setRightPanelOpen(!rightPanelOpen)} />
+
       {/* Hero Section */}
-      <section className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 md:px-12 py-24">
+      <section id="overview" className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 md:px-12 py-24">
         <div className="max-w-2xl mx-auto text-center space-y-8">
           {/* Festival Name */}
           <div>
@@ -38,10 +55,16 @@ export default function VacioLanding() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-            <button className="px-8 py-3 border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-bone transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light">
+            <button 
+              onClick={handleHeroTicketClick}
+              className="px-8 py-3 border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-bone transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light"
+            >
               Get Tickets
             </button>
-            <button className="px-8 py-3 border-2 border-charcoal/30 text-charcoal hover:border-charcoal transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light">
+            <button 
+              onClick={handleHeroLineupClick}
+              className="px-8 py-3 border-2 border-charcoal/30 text-charcoal hover:border-charcoal transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light"
+            >
               View Lineup
             </button>
           </div>
@@ -54,7 +77,7 @@ export default function VacioLanding() {
       </section>
 
       {/* Lineup Section */}
-      <section className="relative w-full px-6 md:px-12 py-24 md:py-32 bg-background">
+      <section id="lineup" className="relative w-full px-6 md:px-12 py-24 md:py-32 bg-background">
         <div className="max-w-4xl mx-auto">
           {/* Section header */}
           <div className="mb-16 md:mb-20">
@@ -103,7 +126,7 @@ export default function VacioLanding() {
       </section>
 
       {/* Location & Tickets Section */}
-      <section className="relative w-full px-6 md:px-12 py-24 md:py-32 bg-bone">
+      <section id="venue" className="relative w-full px-6 md:px-12 py-24 md:py-32 bg-bone">
         <div className="max-w-4xl mx-auto">
           {/* Section header */}
           <div className="mb-12 md:mb-16">
@@ -128,7 +151,10 @@ export default function VacioLanding() {
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="inline-flex items-center gap-2 px-8 py-3 border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-bone transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light">
+              <button 
+                onClick={handleHeroTicketClick}
+                className="inline-flex items-center gap-2 px-8 py-3 border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-bone transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light"
+              >
                 Buy Tickets
                 <ArrowRight className="w-4 h-4" />
               </button>
@@ -150,9 +176,9 @@ export default function VacioLanding() {
             <div className="space-y-3">
               <h3 className="text-xs uppercase tracking-[0.2em] font-light text-bone/60">Info</h3>
               <ul className="space-y-2 text-sm font-light">
-                <li><a href="#" className="hover:text-khaki transition-colors">Lineup</a></li>
-                <li><a href="#" className="hover:text-khaki transition-colors">Tickets</a></li>
-                <li><a href="#" className="hover:text-khaki transition-colors">Location</a></li>
+                <li><a href="#lineup" className="hover:text-khaki transition-colors">Lineup</a></li>
+                <li><a onClick={handleHeroTicketClick} className="hover:text-khaki transition-colors cursor-pointer">Tickets</a></li>
+                <li><a href="#venue" className="hover:text-khaki transition-colors">Location</a></li>
               </ul>
             </div>
             <div className="space-y-3">
