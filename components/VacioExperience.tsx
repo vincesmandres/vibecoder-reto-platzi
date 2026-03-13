@@ -6,7 +6,14 @@ import TrackCarousel from './TrackCarousel';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-const VacioScene = dynamic(() => import('./VacioScene'), { ssr: false });
+const VacioScene = dynamic(() => import('./VacioScene'), { 
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 z-0 bg-[#0a0a0a] flex items-center justify-center">
+      <div className="w-32 h-32 border border-[#c4b7a6]/20 animate-pulse" />
+    </div>
+  )
+});
 
 const tracks = [
   {
