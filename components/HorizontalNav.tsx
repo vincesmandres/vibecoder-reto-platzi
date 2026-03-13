@@ -47,7 +47,7 @@ export default function HorizontalNav({ currentSection, onNavigate }: Horizontal
       <button
         onClick={() => handleScroll('left')}
         disabled={!canScrollLeft}
-        className="w-10 h-10 flex items-center justify-center border border-khaki/30 disabled:border-khaki/10 disabled:text-khaki/20 text-khaki/60 hover:text-khaki hover:border-khaki transition-all duration-300"
+        className="w-10 h-10 flex items-center justify-center border border-charcoal/20 disabled:border-charcoal/10 disabled:text-charcoal/20 text-charcoal/50 hover:text-charcoal hover:border-charcoal/40 transition-all duration-300"
         aria-label="Previous section"
       >
         <ChevronLeft className="w-4 h-4" />
@@ -61,8 +61,8 @@ export default function HorizontalNav({ currentSection, onNavigate }: Horizontal
             onClick={() => onNavigate(section.id)}
             className={`text-xs uppercase tracking-[0.15em] transition-all duration-300 ${
               section.id === currentSection
-                ? 'text-bone'
-                : 'text-khaki/40 hover:text-khaki/60'
+                ? 'text-charcoal'
+                : 'text-charcoal/40 hover:text-charcoal/60'
             }`}
           >
             {section.label}
@@ -74,7 +74,7 @@ export default function HorizontalNav({ currentSection, onNavigate }: Horizontal
       <button
         onClick={() => handleScroll('right')}
         disabled={!canScrollRight}
-        className="w-10 h-10 flex items-center justify-center border border-khaki/30 disabled:border-khaki/10 disabled:text-khaki/20 text-khaki/60 hover:text-khaki hover:border-khaki transition-all duration-300"
+        className="w-10 h-10 flex items-center justify-center border border-charcoal/20 disabled:border-charcoal/10 disabled:text-charcoal/20 text-charcoal/50 hover:text-charcoal hover:border-charcoal/40 transition-all duration-300"
         aria-label="Next section"
       >
         <ChevronRight className="w-4 h-4" />

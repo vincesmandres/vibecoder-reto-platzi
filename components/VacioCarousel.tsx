@@ -43,7 +43,7 @@ export default function VacioCarousel() {
   const CurrentComponent = currentSectionComponent;
 
   return (
-    <div className="relative w-full bg-charcoal-light overflow-x-hidden">
+    <div className="relative w-full bg-bone overflow-x-hidden">
       {/* Manifold loading animation - premium intro */}
       {isLoading && <ManifoldUnfold />}
 
@@ -67,43 +67,43 @@ export default function VacioCarousel() {
       )}
 
       {/* Footer with refined aesthetics */}
-      <footer className="relative w-full py-20 px-6 md:px-12 bg-charcoal-light border-t border-khaki/5">
+      <footer className="relative w-full py-20 px-6 md:px-12 bg-bone border-t border-charcoal/5">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-khaki/40 mb-4">About</p>
-            <p className="text-sm text-bone/80 font-light leading-relaxed">
+            <p className="text-xs uppercase tracking-[0.2em] text-charcoal/40 mb-4">About</p>
+            <p className="text-sm text-charcoal/70 font-light leading-relaxed">
               VACIO celebrates sonic architecture and the void between sound waves.
             </p>
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-khaki/40 mb-4">Info</p>
-            <ul className="space-y-2 text-sm text-bone/80 font-light">
-              <li><a href="#" className="hover:text-khaki transition-colors duration-300">Schedule</a></li>
-              <li><a href="#" className="hover:text-khaki transition-colors duration-300">Lineup</a></li>
-              <li><a href="#" className="hover:text-khaki transition-colors duration-300">Location</a></li>
+            <p className="text-xs uppercase tracking-[0.2em] text-charcoal/40 mb-4">Info</p>
+            <ul className="space-y-2 text-sm text-charcoal/70 font-light">
+              <li><a href="#" className="hover:text-charcoal transition-colors duration-300">Schedule</a></li>
+              <li><a href="#" className="hover:text-charcoal transition-colors duration-300">Lineup</a></li>
+              <li><a href="#" className="hover:text-charcoal transition-colors duration-300">Location</a></li>
             </ul>
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-khaki/40 mb-4">Follow</p>
-            <ul className="space-y-2 text-sm text-bone/80 font-light">
-              <li><a href="#" className="hover:text-khaki transition-colors duration-300">Instagram</a></li>
-              <li><a href="#" className="hover:text-khaki transition-colors duration-300">Twitter</a></li>
-              <li><a href="#" className="hover:text-khaki transition-colors duration-300">Spotify</a></li>
+            <p className="text-xs uppercase tracking-[0.2em] text-charcoal/40 mb-4">Follow</p>
+            <ul className="space-y-2 text-sm text-charcoal/70 font-light">
+              <li><a href="#" className="hover:text-charcoal transition-colors duration-300">Instagram</a></li>
+              <li><a href="#" className="hover:text-charcoal transition-colors duration-300">Twitter</a></li>
+              <li><a href="#" className="hover:text-charcoal transition-colors duration-300">Spotify</a></li>
             </ul>
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-khaki/40 mb-4">Contact</p>
-            <ul className="space-y-2 text-sm text-bone/80 font-light">
-              <li><a href="mailto:info@vacio.ec" className="hover:text-khaki transition-colors duration-300">info@vacio.ec</a></li>
+            <p className="text-xs uppercase tracking-[0.2em] text-charcoal/40 mb-4">Contact</p>
+            <ul className="space-y-2 text-sm text-charcoal/70 font-light">
+              <li><a href="mailto:info@vacio.ec" className="hover:text-charcoal transition-colors duration-300">info@vacio.ec</a></li>
             </ul>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto border-t border-khaki/5 mt-16 pt-8">
-          <p className="text-xs text-khaki/30 font-light">
+        <div className="max-w-7xl mx-auto border-t border-charcoal/5 mt-16 pt-8">
+          <p className="text-xs text-charcoal/30 font-light">
             © 2026 VACIO. Sonic Architecture Festival.
           </p>
         </div>
