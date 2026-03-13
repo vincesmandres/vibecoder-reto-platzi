@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
 
 interface BlocksAnimationProps {
   activeLevel: number;
@@ -12,26 +11,32 @@ export default function BlocksAnimation({ activeLevel }: BlocksAnimationProps) {
   const blocksRef = useRef<HTMLDivElement[]>([]);
 
   useEffect(() => {
-    // Animate blocks based on active level
-    const visibleBlocks = Math.min(activeLevel, 13);
-    
-    blocksRef.current.forEach((block, index) => {
-      if (!block) return;
+    const loadAnime = async () => {
+      const anime = (await import('animejs')).default;
       
-      const isVisible = index < visibleBlocks;
-      const delay = index * 60;
+      // Animate blocks based on active level
+      const visibleBlocks = Math.min(activeLevel, 13);
       
-      anime({
-        targets: block,
-        opacity: isVisible ? 1 : 0.1,
-        scale: isVisible ? 1 : 0.8,
-        translateY: isVisible ? 0 : 20,
-        rotate: isVisible ? (index % 2 === 0 ? 0 : 2) : 0,
-        delay: delay,
-        duration: 400,
-        easing: 'easeOutCubic',
+      blocksRef.current.forEach((block, index) => {
+        if (!block) return;
+        
+        const isVisible = index < visibleBlocks;
+        const delay = index * 60;
+        
+        anime({
+          targets: block,
+          opacity: isVisible ? 1 : 0.1,
+          scale: isVisible ? 1 : 0.8,
+          translateY: isVisible ? 0 : 20,
+          rotate: isVisible ? (index % 2 === 0 ? 0 : 2) : 0,
+          delay: delay,
+          duration: 400,
+          easing: 'easeOutCubic',
+        });
       });
-    });
+    };
+
+    loadAnime();
   }, [activeLevel]);
 
   // Generate block positions in a stacked/tower pattern

@@ -10,22 +10,21 @@ interface TicketDrawerProps {
 
 const ticketTypes = [
   {
-    name: 'Early Access',
+    name: 'Early Bird',
     price: 250,
     oldPrice: 350,
-    includes: ['2-day access', 'Digital lineup', 'Base facilities', 'Festival map'],
+    includes: ['2-day access', 'Digital lineup', 'Base facilities'],
     limited: true,
   },
   {
-    name: 'General Admission',
+    name: 'General',
     price: 350,
-    includes: ['2-day access', 'Digital lineup', 'Premium facilities', 'Curated map', 'Merch item'],
-    featured: true,
+    includes: ['2-day access', 'Digital lineup', 'Premium facilities', 'Curated map'],
   },
   {
-    name: 'Void Pass',
+    name: 'VIP',
     price: 600,
-    includes: ['2-day access', 'VIP lounge access', 'Meet & greet opportunities', 'Exclusive merchandise', 'Priority entry', 'Dedicated support'],
+    includes: ['2-day access', 'VIP lounge', 'Meet & greet', 'Exclusive merchandise', 'Priority entry'],
     exclusive: true,
   },
 ];
