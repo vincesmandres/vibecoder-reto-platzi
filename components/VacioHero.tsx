@@ -15,8 +15,8 @@ export default function VacioHero() {
 
   return (
     <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-charcoal">
-      {/* Premium topology mesh background */}
-      <TopologyMesh isHero={true} />
+      {/* Premium topology mesh background - manifold surface */}
+      <TopologyMesh isHero={true} isMorphing={false} />
 
       {/* Depth layers with subtle gradients */}
       <div className="absolute inset-0 z-[1] pointer-events-none">

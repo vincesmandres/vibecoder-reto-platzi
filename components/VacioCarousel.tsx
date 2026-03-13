@@ -13,8 +13,8 @@ export default function VacioCarousel() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Manifold animation duration
-    const timer = setTimeout(() => setIsLoading(false), 2800);
+    // Manifold animation duration - seamless transition
+    const timer = setTimeout(() => setIsLoading(false), 3200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -30,12 +30,9 @@ export default function VacioCarousel() {
 
   return (
     <div className="relative w-full bg-charcoal overflow-hidden">
-      {/* Manifold unfold animation on load */}
-      {isLoading && <ManifoldUnfold />}
+        {isLoading && <ManifoldUnfold />}
 
-      {/* Horizontal carousel container */}
-      <div className="relative w-full h-screen">
-        {/* Section transitions */}
+        {/* Animated content transition */}
         <div 
           className="relative w-full h-full transition-all duration-700 ease-out"
           style={{
