@@ -36,7 +36,80 @@
   }
 }
 
-/* Premium animations */
+/* Premium animations - Rave festival energy */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes flow-wave {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes rotate-cube {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+@keyframes breathe-mesh {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes shimmer-lines {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -100;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-flow-wave {
+  animation: flow-wave 4s ease-in-out infinite;
+}
+
+.animate-rotate-cube {
+  animation: rotate-cube 20s linear infinite;
+}
+
+.animate-breathe-mesh {
+  animation: breathe-mesh 5s ease-in-out infinite;
+}
+
+.animate-shimmer-lines {
+  animation: shimmer-lines 3s linear infinite;
+}
+
+/* Original slide animations preserved */
 @keyframes slide-in-left {
   0% {
     opacity: 0;
@@ -68,15 +141,6 @@
   }
 }
 
-@keyframes mesh-flow {
-  0%, 100% {
-    opacity: 0.08;
-  }
-  50% {
-    opacity: 0.12;
-  }
-}
-
 .animate-slide-left {
   animation: slide-in-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -88,12 +152,6 @@
 .animate-fade-in {
   animation: fade-in 1s ease-out forwards;
 }
-
-.animate-mesh-flow {
-  animation: mesh-flow 4s ease-in-out infinite;
-}
-
-/* Gradient utilities */
 .bg-gradient-radial {
   background-image: radial-gradient(circle at 50% 50%, var(--tw-gradient-stops));
 }

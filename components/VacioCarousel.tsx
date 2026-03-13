@@ -91,19 +91,23 @@ export default function VacioCarousel() {
                   }}
                   className="relative group text-left w-full"
                 >
-                  {/* Animated indicator line */}
+                  {/* Animated indicator line - with rhythmic pulsation */}
                   <div
-                    className="absolute -left-8 md:-left-12 h-px bg-khaki transition-all duration-500"
+                    className={`absolute -left-8 md:-left-12 h-px bg-khaki transition-all duration-500 ${
+                      isActive ? 'animate-pulse-glow' : ''
+                    }`}
                     style={{
                       width: isActive ? '28px' : '16px',
                       opacity: isActive ? 1 : 0.3,
                     }}
                   />
 
-                  {/* Section label */}
+                  {/* Section label - with glow effect on active */}
                   <span
                     className={`text-xs md:text-sm tracking-[0.25em] uppercase font-light transition-all duration-300 block ${
-                      isActive ? 'text-bone' : 'text-khaki/40 group-hover:text-khaki/70'
+                      isActive 
+                        ? 'text-bone drop-shadow-lg' 
+                        : 'text-khaki/40 group-hover:text-khaki/70'
                     }`}
                   >
                     {section.label}

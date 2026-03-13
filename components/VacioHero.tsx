@@ -15,13 +15,19 @@ export default function VacioHero({ scrollProgress = 0 }: { scrollProgress?: num
 
   return (
     <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-charcoal">
-      {/* Premium topology mesh background */}
+      {/* Premium topology mesh background with continuous motion */}
       <TopologyMesh isHero={true} />
 
-      {/* Depth layers with subtle gradients */}
-      <div className="absolute inset-0 z-[1] pointer-events-none">
+      {/* Depth layers with subtle animated gradients */}
+      <div className="absolute inset-0 z-[1] pointer-events-none animate-breathe-mesh">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-charcoal/40" />
         <div className="absolute inset-0 bg-gradient-radial from-transparent via-charcoal/5 to-charcoal" />
+      </div>
+
+      {/* Pulsing energy rings */}
+      <div className="absolute inset-0 z-[2] pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-khaki/10 rounded-full animate-pulse-glow" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-khaki/5 rounded-full animate-pulse-glow" style={{ animationDelay: '1s' }} />
       </div>
 
       {/* Centered content */}
