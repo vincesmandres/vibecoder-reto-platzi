@@ -41,7 +41,7 @@ export default function VacioLanding() {
         <div className="max-w-2xl mx-auto text-center space-y-8">
           {/* Festival Name - Strong Festival Identity */}
           <div className="space-y-6">
-            <h1 className="text-9xl md:text-10xl font-black tracking-tighter text-charcoal leading-none" style={{ letterSpacing: '-0.04em', fontWeight: 900 }}>
+            <h1 className="text-9xl md:text-10xl font-display font-bold tracking-tight text-charcoal leading-none" style={{ letterSpacing: '-0.02em' }}>
               VACIO
             </h1>
             <div className="flex items-center justify-center gap-4">
