@@ -7,11 +7,9 @@ import VacioDrawer, { VacioDrawerToggle } from '@/components/LeftNavPanel';
 
 export default function VacioLanding() {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
 
   const handleTicketSelect = (ticketId: string) => {
-    setSelectedTicket(ticketId);
-    // Optional: show confirmation or proceed to checkout
+    // Handle ticket selection - could proceed to checkout
     console.log('Selected ticket:', ticketId);
   };
 
