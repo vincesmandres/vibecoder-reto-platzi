@@ -37,22 +37,43 @@ export default function VacioLanding() {
       <VacioDrawerToggle onClick={openDrawer} />
 
       {/* Hero Section */}
-      <section id="overview" className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 md:px-12 py-24">
-        <div className="max-w-2xl mx-auto text-center space-y-8">
-          {/* Festival Name - Strong Festival Identity */}
-          <div className="space-y-6">
-            <h1 className="text-9xl md:text-10xl font-display font-bold tracking-tight text-charcoal leading-none" style={{ letterSpacing: '-0.02em' }}>
+      <section id="overview" className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 md:px-12 py-24 overflow-hidden">
+        {/* Subtle background grid accent */}
+        <div className="absolute inset-0 opacity-5 pointer-events-none" style={{
+          backgroundImage: 'linear-gradient(90deg, transparent 24%, rgba(0,0,0,.05) 25%, rgba(0,0,0,.05) 26%, transparent 27%, transparent 74%, rgba(0,0,0,.05) 75%, rgba(0,0,0,.05) 76%, transparent 77%, transparent), linear-gradient(0deg, transparent 24%, rgba(0,0,0,.05) 25%, rgba(0,0,0,.05) 26%, transparent 27%, transparent 74%, rgba(0,0,0,.05) 75%, rgba(0,0,0,.05) 76%, transparent 77%, transparent)',
+          backgroundSize: '50px 50px'
+        }} />
+        
+        <div className="max-w-3xl mx-auto text-center space-y-8 relative z-10">
+          {/* Festival Name - Iconic and Dominant */}
+          <div className="space-y-8">
+            {/* Top accent line */}
+            <div className="flex justify-center">
+              <div className="w-24 h-px bg-charcoal/40" />
+            </div>
+
+            <h1 className="text-9xl md:text-10xl lg:text-11xl font-display font-bold tracking-tight text-charcoal leading-none" style={{ letterSpacing: '-0.02em' }}>
               VACIO
             </h1>
-            <div className="flex items-center justify-center gap-4">
-              <div className="w-16 h-px bg-charcoal/50" />
-              <div className="w-1.5 h-1.5 bg-charcoal/50 rounded-full" />
-              <div className="w-16 h-px bg-charcoal/50" />
+
+            {/* Decorative grid accent under title */}
+            <div className="flex justify-center gap-1.5 h-8">
+              {[...Array(12)].map((_, i) => (
+                <div key={i} className="w-1 h-full bg-charcoal/10 rounded-full" />
+              ))}
+            </div>
+
+            {/* Horizontal divider with dots */}
+            <div className="flex items-center justify-center gap-3 py-2">
+              <div className="w-8 h-px bg-charcoal/40" />
+              <div className="w-1 h-1 bg-charcoal/60 rounded-full" />
+              <div className="w-1 h-1 bg-charcoal/40 rounded-full" />
+              <div className="w-8 h-px bg-charcoal/40" />
             </div>
           </div>
 
           {/* Tagline - Improved */}
-          <p className="text-xl md:text-2xl font-light text-charcoal/80 leading-relaxed max-w-lg mx-auto tracking-wide">
+          <p className="text-xl md:text-2xl font-light text-charcoal/80 leading-relaxed max-w-2xl mx-auto tracking-wide">
             Entra en el pulso. Sal de lo ordinario.
           </p>
 
@@ -66,71 +87,82 @@ export default function VacioLanding() {
             </p>
           </div>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - More Premium */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-12">
             <button 
               onClick={openDrawer}
-              className="px-8 py-3 border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-bone transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light"
+              className="group px-8 py-4 border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-bone transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light relative overflow-hidden"
             >
-              Comprar entradas
+              <span className="relative z-10">Comprar entradas</span>
+              <div className="absolute inset-0 bg-charcoal/5 group-hover:bg-charcoal transition-all duration-300" />
             </button>
             <a 
               href="#agenda"
-              className="px-8 py-3 border-2 border-charcoal/30 text-charcoal hover:border-charcoal transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light text-center"
+              className="group px-8 py-4 border-2 border-charcoal/30 text-charcoal hover:border-charcoal hover:bg-charcoal/5 transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light"
             >
               Ver agenda
             </a>
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 text-charcoal/40 text-xs uppercase tracking-[0.2em] animate-pulse">
-          Desplaza para más
+        {/* Scroll indicator with animated line */}
+        <div className="absolute bottom-8 flex flex-col items-center gap-2">
+          <div className="text-charcoal/40 text-xs uppercase tracking-[0.2em] animate-pulse">
+            Desplaza para más
+          </div>
+          <div className="w-px h-4 bg-charcoal/30 animate-pulse" />
         </div>
       </section>
 
       {/* Agenda Section */}
       <section id="agenda" className="relative w-full px-6 md:px-12 py-24 md:py-32 bg-background">
         <div className="max-w-4xl mx-auto">
-          {/* Section header with geometric accent */}
-          <div className="mb-16 md:mb-20">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-px bg-charcoal/40" />
-              <h2 className="text-4xl md:text-5xl font-light text-charcoal">
+          {/* Section header with enhanced styling */}
+          <div className="mb-20 md:mb-24">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-px bg-charcoal/40" />
+              <h2 className="text-5xl md:text-6xl font-light text-charcoal">
                 Agenda
               </h2>
             </div>
-            <div className="w-full h-px bg-gradient-to-r from-charcoal/30 to-transparent" />
+            <div className="w-full h-px bg-gradient-to-r from-charcoal/40 via-charcoal/20 to-transparent" />
           </div>
 
           {/* Schedule organized by day */}
-          <div className="space-y-16">
+          <div className="space-y-20">
             {/* Saturday */}
-            <div>
-              <h3 className="text-2xl md:text-3xl font-light text-charcoal mb-12 pb-4 border-b-2 border-charcoal/20">
-                Sábado 18 de octubre
-              </h3>
+            <div className="relative">
+              {/* Day indicator */}
+              <div className="inline-block mb-8">
+                <div className="text-xs uppercase tracking-[0.3em] font-light text-charcoal/60 mb-2">Día 1</div>
+                <h3 className="text-3xl md:text-4xl font-light text-charcoal">
+                  Sábado 18 de octubre
+                </h3>
+              </div>
+              <div className="w-12 h-px bg-charcoal/30 mt-4 mb-12" />
               
-              <div className="space-y-10">
+              <div className="space-y-12">
                 {/* Main Stage Saturday */}
-                <div>
-                  <div className="flex items-center gap-2 mb-6">
+                <div className="bg-bone/50 p-8 md:p-10 border-l-4 border-charcoal/30">
+                  <div className="flex items-center gap-3 mb-8">
                     <div className="w-2 h-2 bg-charcoal rounded-full" />
+                    <div className="w-8 h-px bg-charcoal/20" />
                     <h4 className="text-xs uppercase tracking-[0.3em] font-light text-charcoal/70">
                       Escenario Principal
                     </h4>
                   </div>
-                  <div className="space-y-4 pl-4 border-l-2 border-charcoal/10">
+                  <div className="space-y-5">
                     {[
-                      { time: '18:00', artist: 'LUNAX' },
-                      { time: '19:30', artist: 'Gabry Ponte' },
-                      { time: '21:00', artist: 'Maddix' },
-                      { time: '23:00', artist: 'Hardwell' },
+                      { time: '18:00', artist: 'LUNAX', isHeadliner: false },
+                      { time: '19:30', artist: 'Gabry Ponte', isHeadliner: false },
+                      { time: '21:00', artist: 'Maddix', isHeadliner: false },
+                      { time: '23:00', artist: 'Hardwell', isHeadliner: true },
                     ].map((set, idx) => (
-                      <div key={idx} className="group flex items-baseline gap-4">
-                        <span className="text-sm font-medium text-charcoal/60 min-w-fit">{set.time}</span>
-                        <p className="text-lg font-light text-charcoal group-hover:text-charcoal/70 transition-colors">
+                      <div key={idx} className={`flex items-baseline gap-4 ${set.isHeadliner ? 'px-4 py-3 bg-charcoal/5 border-l-2 border-charcoal/40' : 'group'}`}>
+                        <span className="text-sm font-medium text-charcoal/60 min-w-fit tabular-nums">{set.time}</span>
+                        <p className={`${set.isHeadliner ? 'text-lg font-medium text-charcoal' : 'text-lg font-light text-charcoal group-hover:text-charcoal/70'} transition-colors`}>
                           {set.artist}
+                          {set.isHeadliner && <span className="text-xs ml-2 uppercase tracking-[0.1em] font-light text-charcoal/50">Headliner</span>}
                         </p>
                       </div>
                     ))}
@@ -138,21 +170,22 @@ export default function VacioLanding() {
                 </div>
 
                 {/* Techno Arena Saturday */}
-                <div>
-                  <div className="flex items-center gap-2 mb-6">
+                <div className="bg-bone/50 p-8 md:p-10 border-l-4 border-charcoal/20">
+                  <div className="flex items-center gap-3 mb-8">
                     <div className="w-2 h-2 bg-charcoal rounded-full" />
+                    <div className="w-8 h-px bg-charcoal/20" />
                     <h4 className="text-xs uppercase tracking-[0.3em] font-light text-charcoal/70">
                       Arena Techno
                     </h4>
                   </div>
-                  <div className="space-y-4 pl-4 border-l-2 border-charcoal/10">
+                  <div className="space-y-5">
                     {[
-                      { time: '18:30', artist: 'Kevin D\'Angello' },
-                      { time: '20:00', artist: 'Sara Landry' },
-                      { time: '21:30', artist: 'Charlotte de Witte' },
+                      { time: '18:30', artist: 'Kevin D\'Angello', isHeadliner: false },
+                      { time: '20:00', artist: 'Sara Landry', isHeadliner: false },
+                      { time: '21:30', artist: 'Charlotte de Witte', isHeadliner: false },
                     ].map((set, idx) => (
                       <div key={idx} className="group flex items-baseline gap-4">
-                        <span className="text-sm font-medium text-charcoal/60 min-w-fit">{set.time}</span>
+                        <span className="text-sm font-medium text-charcoal/60 min-w-fit tabular-nums">{set.time}</span>
                         <p className="text-lg font-light text-charcoal group-hover:text-charcoal/70 transition-colors">
                           {set.artist}
                         </p>
@@ -164,36 +197,44 @@ export default function VacioLanding() {
             </div>
 
             {/* Divider */}
-            <div className="flex items-center justify-center gap-2 py-6">
+            <div className="flex items-center justify-center gap-3 py-8">
               <div className="flex-1 h-px bg-charcoal/10" />
-              <div className="w-1 h-1 bg-charcoal/30 rounded-full" />
+              <div className="w-1.5 h-1.5 bg-charcoal/30 rounded-full" />
+              <div className="w-1.5 h-1.5 bg-charcoal/20 rounded-full" />
               <div className="flex-1 h-px bg-charcoal/10" />
             </div>
 
             {/* Sunday */}
-            <div>
-              <h3 className="text-2xl md:text-3xl font-light text-charcoal mb-12 pb-4 border-b-2 border-charcoal/20">
-                Domingo 19 de octubre
-              </h3>
+            <div className="relative">
+              {/* Day indicator */}
+              <div className="inline-block mb-8">
+                <div className="text-xs uppercase tracking-[0.3em] font-light text-charcoal/60 mb-2">Día 2</div>
+                <h3 className="text-3xl md:text-4xl font-light text-charcoal">
+                  Domingo 19 de octubre
+                </h3>
+              </div>
+              <div className="w-12 h-px bg-charcoal/30 mt-4 mb-12" />
               
-              <div className="space-y-10">
+              <div className="space-y-12">
                 {/* Main Stage Sunday */}
-                <div>
-                  <div className="flex items-center gap-2 mb-6">
+                <div className="bg-bone/50 p-8 md:p-10 border-l-4 border-charcoal/30">
+                  <div className="flex items-center gap-3 mb-8">
                     <div className="w-2 h-2 bg-charcoal rounded-full" />
+                    <div className="w-8 h-px bg-charcoal/20" />
                     <h4 className="text-xs uppercase tracking-[0.3em] font-light text-charcoal/70">
                       Escenario Principal
                     </h4>
                   </div>
-                  <div className="space-y-4 pl-4 border-l-2 border-charcoal/10">
+                  <div className="space-y-5">
                     {[
-                      { time: '18:00', artist: 'Martin Garrix' },
-                      { time: '21:30', artist: 'Dimitri Vegas & Like Mike' },
+                      { time: '18:00', artist: 'Martin Garrix', isHeadliner: false },
+                      { time: '21:30', artist: 'Dimitri Vegas & Like Mike', isHeadliner: true },
                     ].map((set, idx) => (
-                      <div key={idx} className="group flex items-baseline gap-4">
-                        <span className="text-sm font-medium text-charcoal/60 min-w-fit">{set.time}</span>
-                        <p className="text-lg font-medium text-charcoal group-hover:text-charcoal/70 transition-colors">
+                      <div key={idx} className={`flex items-baseline gap-4 ${set.isHeadliner ? 'px-4 py-3 bg-charcoal/5 border-l-2 border-charcoal/40' : 'group'}`}>
+                        <span className="text-sm font-medium text-charcoal/60 min-w-fit tabular-nums">{set.time}</span>
+                        <p className={`${set.isHeadliner ? 'text-lg font-medium text-charcoal' : 'text-lg font-light text-charcoal group-hover:text-charcoal/70'} transition-colors`}>
                           {set.artist}
+                          {set.isHeadliner && <span className="text-xs ml-2 uppercase tracking-[0.1em] font-light text-charcoal/50">Headliner</span>}
                         </p>
                       </div>
                     ))}
@@ -201,21 +242,22 @@ export default function VacioLanding() {
                 </div>
 
                 {/* Electronic Stage Sunday */}
-                <div>
-                  <div className="flex items-center gap-2 mb-6">
+                <div className="bg-bone/50 p-8 md:p-10 border-l-4 border-charcoal/20">
+                  <div className="flex items-center gap-3 mb-8">
                     <div className="w-2 h-2 bg-charcoal rounded-full" />
+                    <div className="w-8 h-px bg-charcoal/20" />
                     <h4 className="text-xs uppercase tracking-[0.3em] font-light text-charcoal/70">
                       Escenario Electrónico
                     </h4>
                   </div>
-                  <div className="space-y-4 pl-4 border-l-2 border-charcoal/10">
+                  <div className="space-y-5">
                     {[
-                      { time: '17:30', artist: 'LUNAX' },
-                      { time: '19:00', artist: 'Gabry Ponte' },
-                      { time: '20:30', artist: 'Adam Beyer' },
+                      { time: '17:30', artist: 'LUNAX', isHeadliner: false },
+                      { time: '19:00', artist: 'Gabry Ponte', isHeadliner: false },
+                      { time: '20:30', artist: 'Adam Beyer', isHeadliner: false },
                     ].map((set, idx) => (
                       <div key={idx} className="group flex items-baseline gap-4">
-                        <span className="text-sm font-medium text-charcoal/60 min-w-fit">{set.time}</span>
+                        <span className="text-sm font-medium text-charcoal/60 min-w-fit tabular-nums">{set.time}</span>
                         <p className="text-lg font-light text-charcoal group-hover:text-charcoal/70 transition-colors">
                           {set.artist}
                         </p>
@@ -232,35 +274,55 @@ export default function VacioLanding() {
       {/* Location & Tickets Section */}
       <section id="venue" className="relative w-full px-6 md:px-12 py-24 md:py-32 bg-bone">
         <div className="max-w-4xl mx-auto">
-          {/* Section header with geometric accent */}
-          <div className="mb-12 md:mb-16">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-px bg-charcoal/40" />
-              <h2 className="text-4xl md:text-5xl font-light text-charcoal">
+          {/* Section header with enhanced styling */}
+          <div className="mb-16 md:mb-20">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-px bg-charcoal/40" />
+              <h2 className="text-5xl md:text-6xl font-light text-charcoal">
                 Lugar
               </h2>
             </div>
-            <div className="w-full h-px bg-gradient-to-r from-charcoal/30 to-transparent" />
+            <div className="w-full h-px bg-gradient-to-r from-charcoal/40 via-charcoal/20 to-transparent" />
           </div>
 
-          {/* Location info */}
-          <div className="space-y-8">
-            <div className="space-y-4 max-w-2xl">
+          {/* Location info with better layout */}
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="space-y-6">
               <p className="text-lg text-charcoal font-light leading-relaxed">
                 VACIO se realiza en el icónico lugar a orilla del mar en Manta, Ecuador. Dos días de música electrónica ininterrumpida en un espacio premium diseñado para la máxima inmersión.
               </p>
-              <div className="text-sm text-charcoal/60 space-y-2 font-light">
-                <p><span className="font-medium text-charcoal">Lugar</span> — Manta Waterfront</p>
-                <p><span className="font-medium text-charcoal">Dirección</span> — Av. Malecón, Manta, Ecuador</p>
-                <p><span className="font-medium text-charcoal">Capacidad</span> — 5.000 asistentes</p>
+              
+              {/* Info cards */}
+              <div className="space-y-4 pt-4">
+                <div className="border-l-4 border-charcoal/20 pl-4 py-2">
+                  <p className="text-xs uppercase tracking-[0.2em] font-light text-charcoal/60 mb-1">Lugar</p>
+                  <p className="text-base font-light text-charcoal">Manta Waterfront</p>
+                </div>
+                <div className="border-l-4 border-charcoal/20 pl-4 py-2">
+                  <p className="text-xs uppercase tracking-[0.2em] font-light text-charcoal/60 mb-1">Dirección</p>
+                  <p className="text-base font-light text-charcoal">Av. Malecón, Manta, Ecuador</p>
+                </div>
+                <div className="border-l-4 border-charcoal/20 pl-4 py-2">
+                  <p className="text-xs uppercase tracking-[0.2em] font-light text-charcoal/60 mb-1">Capacidad</p>
+                  <p className="text-base font-light text-charcoal">5.000 asistentes</p>
+                </div>
               </div>
             </div>
 
-            {/* CTA */}
-            <div className="pt-4">
+            {/* CTA Card */}
+            <div className="bg-charcoal text-bone p-10 md:p-12 flex flex-col justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] font-light text-bone/60 mb-4">¿Listo para entrar?</p>
+                <h3 className="text-2xl md:text-3xl font-light mb-6">
+                  Asegura tu entrada ahora
+                </h3>
+                <p className="text-sm font-light text-bone/80 leading-relaxed">
+                  Elige tu ticket y sé parte del viaje sonoro más intenso del año.
+                </p>
+              </div>
               <button 
                 onClick={openDrawer}
-                className="inline-flex items-center gap-3 px-8 py-3 border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-bone transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light"
+                className="mt-8 inline-flex items-center gap-3 px-8 py-4 border-2 border-bone text-bone hover:bg-bone hover:text-charcoal transition-all duration-300 text-sm uppercase tracking-[0.15em] font-light self-start"
               >
                 Comprar entradas
                 <ArrowRight className="w-4 h-4" />
@@ -271,44 +333,63 @@ export default function VacioLanding() {
       </section>
 
       {/* Footer */}
-      <footer className="w-full px-6 md:px-12 py-12 bg-charcoal text-bone">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            <div className="space-y-3">
-              <h3 className="text-xs uppercase tracking-[0.2em] font-light text-bone/60">Acerca de</h3>
-              <p className="text-sm font-light leading-relaxed">
-                VACIO es un festival de 2 días de hardtechno y música electrónica celebrando arquitectura sónica.
+      <footer className="w-full px-6 md:px-12 py-16 md:py-20 bg-charcoal text-bone border-t-2 border-khaki/30">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 mb-16">
+            {/* Brand section */}
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h3 className="text-xs uppercase tracking-[0.3em] font-light text-khaki">Festival</h3>
+                <p className="text-lg font-display font-bold text-bone">VACIO</p>
+              </div>
+              <p className="text-sm font-light text-bone/70 leading-relaxed">
+                Un festival de 2 días celebrando la arquitectura sónica del hardtechno y música electrónica.
               </p>
             </div>
-            <div className="space-y-3">
-              <h3 className="text-xs uppercase tracking-[0.2em] font-light text-bone/60">Información</h3>
-              <ul className="space-y-2 text-sm font-light">
-                <li><a href="#agenda" className="hover:text-khaki transition-colors">Agenda</a></li>
-                <li><a onClick={openDrawer} className="hover:text-khaki transition-colors cursor-pointer">Entradas</a></li>
-                <li><a href="#venue" className="hover:text-khaki transition-colors">Lugar</a></li>
+
+            {/* Navigation */}
+            <div className="space-y-4">
+              <h3 className="text-xs uppercase tracking-[0.3em] font-light text-bone/60">Navegación</h3>
+              <ul className="space-y-3 text-sm font-light">
+                <li><a href="#overview" className="text-bone/80 hover:text-khaki transition-colors">Inicio</a></li>
+                <li><a href="#agenda" className="text-bone/80 hover:text-khaki transition-colors">Agenda</a></li>
+                <li><a href="#venue" className="text-bone/80 hover:text-khaki transition-colors">Lugar</a></li>
               </ul>
             </div>
-            <div className="space-y-3">
-              <h3 className="text-xs uppercase tracking-[0.2em] font-light text-bone/60">Síguenos</h3>
-              <ul className="space-y-2 text-sm font-light">
-                <li><a href="#" className="hover:text-khaki transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-khaki transition-colors">Twitter</a></li>
-                <li><a href="#" className="hover:text-khaki transition-colors">Spotify</a></li>
+
+            {/* Tickets */}
+            <div className="space-y-4">
+              <h3 className="text-xs uppercase tracking-[0.3em] font-light text-bone/60">Entradas</h3>
+              <ul className="space-y-3 text-sm font-light">
+                <li><button onClick={openDrawer} className="text-bone/80 hover:text-khaki transition-colors cursor-pointer">Comprar ahora</button></li>
+                <li><a href="#venue" className="text-bone/80 hover:text-khaki transition-colors">Información</a></li>
               </ul>
             </div>
-            <div className="space-y-3">
-              <h3 className="text-xs uppercase tracking-[0.2em] font-light text-bone/60">Contacto</h3>
-              <p className="text-sm font-light">
-                <a href="mailto:info@vacio.ec" className="hover:text-khaki transition-colors">info@vacio.ec</a>
-              </p>
+
+            {/* Social & Contact */}
+            <div className="space-y-4">
+              <h3 className="text-xs uppercase tracking-[0.3em] font-light text-bone/60">Conecta</h3>
+              <ul className="space-y-3 text-sm font-light">
+                <li><a href="#" className="text-bone/80 hover:text-khaki transition-colors">Instagram</a></li>
+                <li><a href="#" className="text-bone/80 hover:text-khaki transition-colors">Twitter</a></li>
+                <li><a href="mailto:info@vacio.ec" className="text-bone/80 hover:text-khaki transition-colors">info@vacio.ec</a></li>
+              </ul>
             </div>
           </div>
 
+          {/* Divider */}
+          <div className="w-full h-px bg-bone/10 mb-8" />
+
           {/* Bottom bar */}
-          <div className="border-t border-bone/20 pt-8">
-            <p className="text-xs text-bone/40 font-light">
-              © 2026 VACIO. Todos los derechos reservados.
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-light">
+            <p className="text-bone/50">
+              © 2026 VACIO Festival. Todos los derechos reservados.
             </p>
+            <div className="flex items-center gap-4 text-bone/50">
+              <a href="#" className="hover:text-khaki transition-colors">Privacidad</a>
+              <span>·</span>
+              <a href="#" className="hover:text-khaki transition-colors">Términos</a>
+            </div>
           </div>
         </div>
       </footer>
