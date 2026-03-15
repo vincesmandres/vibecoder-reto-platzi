@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono, Rubik_Microbe } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({ 
@@ -10,6 +10,12 @@ const inter = Inter({
 const jetbrains = JetBrains_Mono({ 
   subsets: ['latin'],
   variable: '--font-jetbrains',
+});
+
+const rubikMicrobe = Rubik_Microbe({ 
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-rubik-microbe',
 });
 
 export const metadata: Metadata = {
@@ -23,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={`${inter.variable} ${jetbrains.variable}`}>
+    <html lang="es" className={`${inter.variable} ${jetbrains.variable} ${rubikMicrobe.variable}`}>
       <body className="font-sans">
         {children}
       </body>

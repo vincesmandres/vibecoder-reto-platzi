@@ -63,7 +63,6 @@ export default function RubikCubeBackground({ sectionIndex = 0, className = '' }
       };
 
       // Draw cube faces with manifold topology
-      const cubeSize = 1;
       ctx.globalAlpha = 0.08;
 
       // Toroidal field lines (contour-like)

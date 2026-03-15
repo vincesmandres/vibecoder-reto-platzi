@@ -28,6 +28,7 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-inter)'],
         mono: ['var(--font-jetbrains)'],
+        display: ['var(--font-rubik-microbe)'],
       },
       borderRadius: {
         lg: 'var(--radius)',
