@@ -52,10 +52,6 @@ export default function TopologyMesh({ isHero = false, audioData = [], isPlaying
       const avgIntensity = audioData && audioData.length > 0 
         ? audioData.slice(0, 64).reduce((a, b) => a + b, 0) / 64 / 255 
         : 0;
-      
-      const midIntensity = audioData && audioData.length > 0
-        ? audioData.slice(32, 96).reduce((a, b) => a + b, 0) / 64 / 255
-        : 0;
 
       const baseAmplitude = isHero ? 0.3 : 0.2;
       const audioAmplitude = isPlaying ? 0.2 + avgIntensity * 1.2 : 0;
