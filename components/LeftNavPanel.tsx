@@ -1,6 +1,6 @@
 'use client';
 
-import { X, Menu, ShoppingCart } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface VacioDrawerProps {
   isOpen: boolean;
